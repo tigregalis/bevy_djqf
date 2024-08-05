@@ -16,6 +16,34 @@ and if we enforced that entities didn't have more than one variant at a time.
 Or put another way, this is similar to having an [index](https://github.com/bevyengine/bevy/discussions/1205)
 where you can look up entities by the value of enum variants.
 
+## A motivating example
+
+Instead of
+
+```rust,ignore
+fn complex_system(
+    a_query: Query<&mut Transform, (With<A>, Without<B>, Without<C>, Without<D>, Without<E>, Without<F>, Without<G>, ..., Without<Z>)>,
+    b_query: Query<&mut Transform, (Without<A>, With<B>, Without<C>, Without<D>, Without<E>, Without<F>, Without<G>, ..., Without<Z>)>,
+    ...,
+    z_query: Query<&mut Transform, (Without<A>, Without<B>, Without<C>, Without<D>, Without<E>, Without<F>, Without<G>, ..., With<Z>)>,
+) {
+    // ...
+}
+```
+
+We can have
+
+```rust,ignore
+fn complex_system(
+    a_query: Query<&mut Transform, <A as Disjoint>::Only>,
+    b_query: Query<&mut Transform, <B as Disjoint>::Only>,
+    ...,
+    z_query: Query<&mut Transform, <Z as Disjoint>::Only>,
+) {
+    // ...
+}
+```
+
 # `disjoint!()`
 
 The [`disjoint`] macro can be used to generate disjoint query filters for a list of types.
