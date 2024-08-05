@@ -5,7 +5,11 @@ version = "0.1.0"
 authors = ["tigregalis"]
 edition = "2021"
 license = "MIT OR Apache-2.0"
+homepage = "https://github.com/tigregalis/bevy_djqf"
 repository = "https://github.com/tigregalis/bevy_djqf"
+readme = "README.md"
+keywords = ["bevy", "disjoint", "query", "filter"]
+categories = ["game-development"]
 
 [dependencies]
 bevy_ecs = "0.14.1"
