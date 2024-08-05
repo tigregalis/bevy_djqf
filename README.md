@@ -63,9 +63,15 @@ struct C;
 
 disjoint!(A, B, C);
 
-fn only_a(_query: Query<&mut Transform, <A as Disjoint>::Only>) {}
+fn a(
+  _only_a_query: Query<&mut Transform, <A as Disjoint>::Only>,
+  _except_a_query: Query<&mut Transform, <A as Disjoint>::Other>,
+) {}
 
-fn except_b(_query: Query<&mut Transform, <B as Disjoint>::Other>) {}
+fn b(
+  _only_b_query: Query<&mut Transform, <B as Disjoint>::Only>,
+  _except_b_query: Query<&mut Transform, <B as Disjoint>::Other>,
+) {}
 
-App::new().add_systems(Update, (only_a, except_b));
+App::new().add_systems(Update, (a, b));
 ```

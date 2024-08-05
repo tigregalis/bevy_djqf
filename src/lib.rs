@@ -134,7 +134,10 @@ pub trait Disjoint {
 /// // Provide the macro and the list of type names you want to generate
 /// make_disjoint_markers!(type_template : Player, FriendlyPlayer, EnemyPlayer, NonPlayerCharacter, FriendlyAi, EnemyAi);
 ///
-/// fn player_only(_query: Query<&mut Transform, <Player as Disjoint>::Only>) {}
+/// fn player_only(
+///     _player_only: Query<&mut Transform, <Player as Disjoint>::Only>,
+///     _others: Query<&mut Transform, <Player as Disjoint>::Other>,
+/// ) {}
 ///
 /// fn any(_query: Query<&mut Transform, <Player as Disjoint>::All>) {}
 ///
