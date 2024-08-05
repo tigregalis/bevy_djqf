@@ -69,12 +69,7 @@ For example, `disjoint!(A, B, C);` generates the following query filters:
 - `<C as Disjoint>::Any`
   - Equivalent to: `Or<(With<A>, With<B>, With<C>)>`
 
-# `make_disjoint_markers!()`
-
-Alternatively, you can generate the types at the same time using the [`make_disjoint_markers`] macro,
-with you providing a template macro for generating a single marker type.
-
-# Example
+## Example
 
 ```rust
 use bevy::prelude::*;
@@ -90,6 +85,39 @@ struct B;
 struct C;
 
 disjoint!(A, B, C);
+
+fn a(
+  _only_a_query: Query<&mut Transform, <A as Disjoint>::Only>,
+  _except_a_query: Query<&mut Transform, <A as Disjoint>::Other>,
+) {}
+
+fn b(
+  _only_b_query: Query<&mut Transform, <B as Disjoint>::Only>,
+  _except_b_query: Query<&mut Transform, <B as Disjoint>::Other>,
+) {}
+
+App::new().add_systems(Update, (a, b));
+```
+
+# `make_disjoint_markers!()`
+
+Alternatively, you can generate the types at the same time using the [`make_disjoint_markers`] macro,
+with you providing a template macro for generating a single marker type.
+
+## Example
+
+```rust
+use bevy::prelude::*;
+use bevy_djqf::{Disjoint, make_disjoint_markers};
+
+macro_rules! type_template {
+    ($Name:ident) => {
+        #[derive(Component, Debug, Default)]
+        struct $Name;
+    };
+}
+
+make_disjoint_markers!(type_template for A, B, C);
 
 fn a(
   _only_a_query: Query<&mut Transform, <A as Disjoint>::Only>,
