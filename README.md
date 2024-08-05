@@ -62,11 +62,11 @@ For example, `disjoint!(A, B, C);` generates the following query filters:
   - Equivalent to: `(Without<B>, Or<(With<A>, With<C>)>)`
 - `<C as Disjoint>::Other`
   - Equivalent to: `(Without<C>, Or<(With<A>, With<B>)>)`
-- `<A as Disjoint>::All`
+- `<A as Disjoint>::Any`
   - Equivalent to: `Or<(With<A>, With<B>, With<C>)>`
-- `<B as Disjoint>::All`
+- `<B as Disjoint>::Any`
   - Equivalent to: `Or<(With<A>, With<B>, With<C>)>`
-- `<C as Disjoint>::All`
+- `<C as Disjoint>::Any`
   - Equivalent to: `Or<(With<A>, With<B>, With<C>)>`
 
 # `make_disjoint_markers!()`
