@@ -116,7 +116,7 @@ pub trait Disjoint {
 ///
 /// # Usage
 ///
-/// `make_disjoint_markers!(type_template : A, B)` where `type_template` is the name of the macro.
+/// `make_disjoint_markers!(type_template for A, B)` where `type_template` is the name of the macro.
 ///
 /// # Example
 /// ```
@@ -132,7 +132,7 @@ pub trait Disjoint {
 /// }
 ///
 /// // Provide the macro and the list of type names you want to generate
-/// make_disjoint_markers!(type_template : Player, FriendlyPlayer, EnemyPlayer, NonPlayerCharacter, FriendlyAi, EnemyAi);
+/// make_disjoint_markers!(type_template for Player, FriendlyPlayer, EnemyPlayer, NonPlayerCharacter, FriendlyAi, EnemyAi);
 ///
 /// fn player_only(
 ///     _player_only: Query<&mut Transform, <Player as Disjoint>::Only>,
@@ -145,7 +145,7 @@ pub trait Disjoint {
 /// ```
 #[macro_export]
 macro_rules! make_disjoint_markers {
-    ($type_template_macro:ident : $($Name:ident),*) => {
+    ($type_template_macro:ident for $($Name:ident),*) => {
         $(
             $type_template_macro!($Name);
         )*
@@ -158,7 +158,7 @@ macro_rules! make_disjoint_markers {
             concat!(
                 "Invalid input `",
                 stringify!($($invalid_input)*),
-                "` to macro `make_disjoint_markers!`. Use the form `make_disjoint_markers!(type_template : A, B)` where `type_template` is the name of the macro"
+                "` to macro `make_disjoint_markers!`. Use the form `make_disjoint_markers!(type_template for A, B)` where `type_template` is the name of the macro"
             )
         );
     };

@@ -8,7 +8,7 @@ macro_rules! type_template {
     };
 }
 make_disjoint_markers!(
-    type_template:
+    type_template for
     Player,
     FriendlyPlayer,
     EnemyPlayer,
